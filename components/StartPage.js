@@ -4,7 +4,9 @@ import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
 export default function StartPage({ navigation }) {
     return (
         <View style={styles.container}>
-            <Text style={styles.welcome}>Chào mừng đến với IJ FIT UTE!</Text>
+            <Text style={styles.welcome}>
+                Chào mừng đến với <Text style={[styles.welcome, styles.title]}> IJ FIT UTE!</Text>
+            </Text>
 
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Login")}>
                 <Text style={styles.buttonText}>Đăng Nhập</Text>
@@ -34,8 +36,11 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
     },
+    title: {
+        color: "#6dcf5b",
+    },
     button: {
-        backgroundColor: "#007bff",
+        backgroundColor: "#6dcf5b",
         borderRadius: 5,
         paddingVertical: 15,
         paddingHorizontal: 25,
@@ -49,6 +54,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     registerButton: {
-        backgroundColor: "#28a745",
+        backgroundColor: "#509b43",
     },
 });

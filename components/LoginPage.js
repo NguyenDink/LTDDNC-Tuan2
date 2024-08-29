@@ -23,12 +23,19 @@ export default function LoginPage({ navigation }) {
         <View style={styles.container}>
             <Text style={styles.title}>IJ FIT HCMUTE</Text>
 
-            <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={setEmail} />
+            <TextInput
+                style={styles.input}
+                placeholder="Email"
+                placeholderTextColor="#a0a0a0"
+                value={email}
+                onChangeText={setEmail}
+            />
 
             <TextInput
                 style={styles.input}
                 placeholder="Mật khẩu"
                 secureTextEntry
+                placeholderTextColor="#a0a0a0"
                 value={password}
                 onChangeText={setPassword}
             />
@@ -37,16 +44,18 @@ export default function LoginPage({ navigation }) {
                 <Text style={styles.link}>Quên mật khẩu?</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => alert("Đăng ký tài khoản")}>
-                <Text style={styles.link}>
+            <TouchableOpacity style={styles.button} onPress={handleLogin}>
+                <Text style={styles.buttonText}>Đăng nhập</Text>
+            </TouchableOpacity>
+
+            <View style={styles.footer}>
+                <Text style={styles.text}>
                     Chưa có tài khoản?{" "}
                     <Text style={styles.link} onPress={() => navigation.navigate("Register")}>
                         Đăng ký ngay
                     </Text>
                 </Text>
-            </TouchableOpacity>
-
-            <Button title="Đăng nhập" onPress={handleLogin} />
+            </View>
         </View>
     );
 }
@@ -54,24 +63,49 @@ export default function LoginPage({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: "#f9f9f9",
         justifyContent: "center",
         paddingHorizontal: 20,
     },
     title: {
-        fontSize: 24,
-        marginBottom: 20,
+        fontSize: 28,
+        fontWeight: "bold",
+        color: "#6dcf5b",
+        marginBottom: 40,
         textAlign: "center",
     },
     input: {
-        height: 40,
-        borderColor: "gray",
-        borderWidth: 1,
+        height: 45,
+        borderColor: "#6dcf5b",
+        borderWidth: 2,
+        borderRadius: 5,
         marginBottom: 20,
-        paddingHorizontal: 10,
+        paddingHorizontal: 15,
+        backgroundColor: "#ffffff",
     },
     link: {
-        color: "blue",
+        color: "#509b43",
+        textAlign: "center",
         marginBottom: 20,
+    },
+    button: {
+        backgroundColor: "#6dcf5b",
+        borderRadius: 5,
+        paddingVertical: 15,
+        paddingHorizontal: 20,
+        marginBottom: 20,
+        alignItems: "center",
+    },
+    buttonText: {
+        color: "#ffffff",
+        fontSize: 18,
+        fontWeight: "bold",
+    },
+    footer: {
+        alignItems: "center",
+    },
+    text: {
+        color: "#333",
         textAlign: "center",
     },
 });

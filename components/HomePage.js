@@ -19,16 +19,20 @@ export default function HomePage({ route }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: "#eafaf1",
         justifyContent: "center",
         paddingHorizontal: 20,
     },
     title: {
-        fontSize: 24,
-        marginBottom: 20,
+        fontSize: 30,
+        fontWeight: "bold",
+        color: "#6dcf5b",
+        marginBottom: 30,
         textAlign: "center",
     },
     info: {
         fontSize: 18,
+        color: "#333",
         marginBottom: 10,
     },
 });

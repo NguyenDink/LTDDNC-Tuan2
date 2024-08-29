@@ -41,7 +41,13 @@ export default function MoreInfoPage({ route, navigation }) {
         <View style={styles.container}>
             <Text style={styles.title}>Thông Tin Cá Nhân</Text>
 
-            <TextInput style={styles.input} placeholder="Họ và tên" value={fullName} onChangeText={setFullName} />
+            <TextInput
+                style={styles.input}
+                placeholder="Họ và tên"
+                placeholderTextColor="#a0a0a0"
+                value={fullName}
+                onChangeText={setFullName}
+            />
 
             <Text style={styles.label}>Giới tính</Text>
             <View style={styles.radioGroup}>
@@ -61,6 +67,8 @@ export default function MoreInfoPage({ route, navigation }) {
                 value={dob.toDateString()}
                 onFocus={() => setShowDatePicker(true)}
                 showSoftInputOnFocus={false}
+                placeholder="Chọn ngày sinh"
+                placeholderTextColor="#a0a0a0"
             />
             {showDatePicker && <DateTimePicker value={dob} mode="date" display="default" onChange={onChangeDate} />}
 
@@ -68,11 +76,14 @@ export default function MoreInfoPage({ route, navigation }) {
                 style={styles.input}
                 placeholder="Số điện thoại"
                 keyboardType="numeric"
+                placeholderTextColor="#a0a0a0"
                 value={phoneNumber}
                 onChangeText={setPhoneNumber}
             />
 
-            <Button title="Cập nhật" onPress={handleUpdate} />
+            <TouchableOpacity style={styles.button} onPress={handleUpdate}>
+                <Text style={styles.buttonText}>Cập nhật</Text>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -80,24 +91,30 @@ export default function MoreInfoPage({ route, navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: "#f9f9f9",
         justifyContent: "center",
         paddingHorizontal: 20,
     },
     title: {
         fontSize: 24,
+        fontWeight: "bold",
+        color: "#509b43",
         marginBottom: 20,
         textAlign: "center",
     },
     label: {
         fontSize: 18,
+        color: "#333",
         marginBottom: 10,
     },
     input: {
-        height: 40,
-        borderColor: "gray",
-        borderWidth: 1,
+        height: 45,
+        borderColor: "#509b43",
+        borderWidth: 2,
+        borderRadius: 5,
         marginBottom: 20,
-        paddingHorizontal: 10,
+        paddingHorizontal: 15,
+        backgroundColor: "#ffffff",
     },
     radioGroup: {
         flexDirection: "row",
@@ -113,15 +130,28 @@ const styles = StyleSheet.create({
         height: 20,
         borderRadius: 10,
         borderWidth: 2,
-        borderColor: "gray",
+        borderColor: "#6dcf5b",
         marginRight: 10,
         justifyContent: "center",
         alignItems: "center",
     },
     selectedRadio: {
-        backgroundColor: "blue",
+        backgroundColor: "#509b43",
     },
     radioText: {
         fontSize: 16,
+        color: "#333",
+    },
+    button: {
+        backgroundColor: "#509b43",
+        borderRadius: 5,
+        paddingVertical: 15,
+        paddingHorizontal: 20,
+        alignItems: "center",
+    },
+    buttonText: {
+        color: "#ffffff",
+        fontSize: 18,
+        fontWeight: "bold",
     },
 });

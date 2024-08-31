@@ -1,7 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-export default function HomePage({ route }) {
+export default function HomePage({ route, navigation }) {
     const { fullName, email, gender, dob, phoneNumber } = route.params;
 
     return (
@@ -12,6 +12,10 @@ export default function HomePage({ route }) {
             <Text style={styles.info}>Giới tính: {gender}</Text>
             <Text style={styles.info}>Ngày sinh: {dob}</Text>
             <Text style={styles.info}>Số điện thoại: {phoneNumber}</Text>
+
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Start")}>
+                <Text style={styles.buttonText}>Đăng xuất</Text>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -34,5 +38,17 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: "#333",
         marginBottom: 10,
+    },
+    button: {
+        backgroundColor: "#509b43",
+        borderRadius: 5,
+        paddingVertical: 15,
+        paddingHorizontal: 20,
+        alignItems: "center",
+    },
+    buttonText: {
+        color: "#ffffff",
+        fontSize: 18,
+        fontWeight: "bold",
     },
 });

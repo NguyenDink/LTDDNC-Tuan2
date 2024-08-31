@@ -1,17 +1,16 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import React, { useState } from "react";
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function MoreInfoPage({ route, navigation }) {
-    const { email, password } = route.params;
-    const [fullName, setFullName] = useState("");
+    const { email, fullName, password } = route.params;
     const [gender, setGender] = useState("Nam");
     const [dob, setDob] = useState(new Date());
     const [phoneNumber, setPhoneNumber] = useState("");
     const [showDatePicker, setShowDatePicker] = useState(false);
 
     const handleUpdate = () => {
-        if (!fullName || !gender || !dob || !phoneNumber) {
+        if (!gender || !dob || !phoneNumber) {
             Alert.alert("Error", "Vui lòng điền đầy đủ thông tin");
             return;
         }
@@ -40,14 +39,6 @@ export default function MoreInfoPage({ route, navigation }) {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Thông Tin Cá Nhân</Text>
-
-            <TextInput
-                style={styles.input}
-                placeholder="Họ và tên"
-                placeholderTextColor="#a0a0a0"
-                value={fullName}
-                onChangeText={setFullName}
-            />
 
             <Text style={styles.label}>Giới tính</Text>
             <View style={styles.radioGroup}>

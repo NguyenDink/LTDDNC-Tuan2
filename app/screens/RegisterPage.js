@@ -1,28 +1,41 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { register } from "../api/AuthAPIService";
 
 export default function RegisterPage({ navigation }) {
     const [email, setEmail] = useState("");
+    const [fullName, setFullName] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
         if (!email || !password || !confirmPassword) {
-            Alert.alert("Error", "Vui lòng điền đầy đủ thông tin");
+            Alert.alert("Lỗi", "Vui lòng điền đầy đủ thông tin");
             return;
         }
 
         if (password !== confirmPassword) {
-            Alert.alert("Error", "Mật khẩu không trùng khớp");
+            Alert.alert("Lỗi", "Mật khẩu không trùng khớp");
             return;
         }
 
-        navigation.navigate("MoreInfo", { email, password });
+        try {
+            const response = await register(email, fullName, password);
+
+            if (response.error) {
+                Alert.alert("Đăng ký không thành công", response.message);
+            } else {
+                Alert.alert("Success", "Đăng ký thành công!");
+                navigation.navigate("Login");
+            }
+        } catch (error) {
+            Alert.alert("Đăng ký không thành công", "Đã xảy ra lỗi khi đăng ký. Hãy thử lại.");
+        }
     };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Đăng ký</Text>
+            <Text style={styles.title}>IJ FIT UTE</Text>
 
             <TextInput
                 style={styles.input}
@@ -30,6 +43,15 @@ export default function RegisterPage({ navigation }) {
                 placeholderTextColor="#a0a0a0"
                 value={email}
                 onChangeText={setEmail}
+                autoCapitalize="none"
+            />
+
+            <TextInput
+                style={styles.input}
+                placeholder="Họ và tên"
+                placeholderTextColor="#a0a0a0"
+                value={fullName}
+                onChangeText={setFullName}
             />
 
             <TextInput

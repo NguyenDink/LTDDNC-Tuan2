@@ -1,27 +1,36 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { login } from "../api/AuthAPIService";
 
 export default function LoginPage({ navigation }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleLogin = () => {
-        if (email === "admin" && password === "admin") {
-            navigation.navigate("Home", {
-                fullName: "Admin",
-                email: "admin",
-                gender: "Nam",
-                dob: "1/1/2000",
-                phoneNumber: "0123456789",
-            });
-        } else {
-            alert("Email hoặc mật khẩu không chính xác");
+    const handleLogin = async () => {
+        try {
+            const response = await login(email, password);
+
+            if (response.error) {
+                Alert.alert("Đăng nhập không thành công", response.message);
+            } else {
+                setEmail("");
+                setPassword("");
+                navigation.navigate("Home", {
+                    fullName: response.userDTO.fullName || "",
+                    email: response.userDTO.email || "",
+                    gender: response.userDTO.gender || "",
+                    dob: response.userDTO.dob || "",
+                    phoneNumber: response.userDTO.phoneNumber || "",
+                });
+            }
+        } catch (error) {
+            Alert.alert("Đăng nhập không thành công", "Đã xảy ra lỗi khi đăng nhập. Hãy thử lại.");
         }
     };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>IJ FIT HCMUTE</Text>
+            <Text style={styles.title}>IJ FIT UTE</Text>
 
             <TextInput
                 style={styles.input}
@@ -89,7 +98,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     button: {
-        backgroundColor: "#6dcf5b",
+        backgroundColor: "#509b43",
         borderRadius: 5,
         paddingVertical: 15,
         paddingHorizontal: 20,

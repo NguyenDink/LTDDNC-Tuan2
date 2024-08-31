@@ -1,11 +1,11 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import StartPage from "./components/StartPage";
-import LoginPage from "./components/LoginPage";
-import HomePage from "./components/HomePage";
-import RegisterPage from "./components/RegisterPage";
-import MoreInfoPage from "./components/MoreInfoPage";
+import StartPage from "./app/screens/StartPage";
+import LoginPage from "./app/screens/LoginPage";
+import HomePage from "./app/screens/HomePage";
+import RegisterPage from "./app/screens/RegisterPage";
+import MoreInfoPage from "./app/screens/MoreInfoPage";
 
 const Stack = createStackNavigator();
 

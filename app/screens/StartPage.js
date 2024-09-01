@@ -5,18 +5,18 @@ export default function StartPage({ navigation }) {
     return (
         <View style={styles.container}>
             <Text style={styles.welcome}>
-                Chào mừng đến với <Text style={[styles.welcome, styles.title]}> IJ FIT UTE!</Text>
+                Chào mừng đến với <Text style={[styles.welcome, styles.title]}> qnspJob!</Text>
             </Text>
 
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Login")}>
-                <Text style={styles.buttonText}>Đăng Nhập</Text>
+                <Text style={styles.buttonText}>Đăng nhập</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
                 style={[styles.button, styles.registerButton]}
                 onPress={() => navigation.navigate("Register")}
             >
-                <Text style={styles.buttonText}>Đăng Ký</Text>
+                <Text style={styles.buttonText}>Đăng ký tài khoản</Text>
             </TouchableOpacity>
         </View>
     );
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: "#6dcf5b",
-        borderRadius: 5,
+        borderRadius: 50,
         paddingVertical: 15,
         paddingHorizontal: 25,
         marginVertical: 10,

@@ -26,11 +26,11 @@ export default function LoginPage({ navigation }) {
                 setEmail("");
                 setPassword("");
                 navigation.navigate("Home", {
-                    fullName: response.userDTO.fullName || "",
-                    email: response.userDTO.email || "",
-                    gender: response.userDTO.gender || "",
-                    dob: response.userDTO.dob || "",
-                    phoneNumber: response.userDTO.phoneNumber || "",
+                    fullName: response.result.fullName || "",
+                    email: response.result.email || "",
+                    gender: response.result.gender || "",
+                    dob: response.result.dob || "",
+                    phoneNumber: response.result.phoneNumber || "",
                 });
             }
         } catch (error) {
@@ -89,7 +89,7 @@ export default function LoginPage({ navigation }) {
                 <Text style={styles.switchText}>
                     Bằng việc đăng nhập, tôi đã đọc và đồng ý với{" "}
                     <Text style={styles.switchTextLink}>điều khoản dịch vụ</Text> và{" "}
-                    <Text style={styles.switchTextLink}>chính sách bảo mật</Text> của qnspJob
+                    <Text style={styles.switchTextLink}>chính sách bảo mật</Text> của qnspJob.
                 </Text>
             </View>
 
@@ -101,6 +101,8 @@ export default function LoginPage({ navigation }) {
                     </Text>
                 </Text>
             </View>
+
+            <View style={styles.hr} />
         </View>
     );
 }
@@ -111,23 +113,22 @@ const styles = StyleSheet.create({
         backgroundColor: "#ffffff",
         alignItems: "center",
         paddingHorizontal: 28,
+        justifyContent: "space-between",
     },
     image: {
         width: 140,
         height: 140,
         borderRadius: 100,
-        marginBottom: 8,
-        marginTop: 60,
+        marginTop: 40,
     },
     description: {
-        fontSize: 20,
+        fontSize: 18,
         color: "#333",
         marginBottom: 40,
         textAlign: "center",
     },
     title: {
-        fontSize: 24,
-        fontWeight: "bold",
+        fontSize: 22,
         color: "#333",
         marginBottom: 20,
         textAlign: "center",
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         width: "100%",
-        height: 54,
+        height: 50,
         borderRadius: 50,
         marginBottom: 16,
         paddingHorizontal: 15,
@@ -162,7 +163,7 @@ const styles = StyleSheet.create({
     link: {
         color: "#509b43",
         textAlign: "right",
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: "bold",
     },
     button: {
@@ -177,7 +178,6 @@ const styles = StyleSheet.create({
     buttonText: {
         color: "#ffffff",
         fontSize: 18,
-        fontWeight: "bold",
     },
     switchContainer: {
         flexDirection: "row",
@@ -191,12 +191,20 @@ const styles = StyleSheet.create({
     switchTextLink: {
         color: "#509b43",
     },
-    footer: {
-        alignItems: "center",
-    },
     text: {
         color: "#333",
         textAlign: "center",
-        fontSize: 16,
+        fontSize: 14,
+    },
+    footer: {
+        alignItems: "center",
+        marginBottom: 20,
+        marginVertical: 10,
+    },
+    hr: {
+        width: "80%",
+        height: 1,
+        backgroundColor: "#ccc",
+        marginBottom: 40,
     },
 });

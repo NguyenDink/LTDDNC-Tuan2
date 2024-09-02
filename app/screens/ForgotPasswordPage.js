@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from "react-native";
+import { forgotPassword, validateOtp } from "../api/AuthAPIService";
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, ActivityIndicator } from "react-native";
 import icmail from "../assets/envelope-regular-24.png";
 
 export default function ForgotPassWordPage({ navigation }) {
     const [email, setEmail] = useState("");
     const [emailError, setEmailError] = useState("");
+    const [otpSent, setOtpSent] = useState(false);
+    const [otp, setOtp] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    const handleResetPassword = () => {
+    const handleResetPassword = async () => {
+        setLoading(true);
         const emailRegex =
             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (email.trim() === "") {
@@ -15,6 +20,38 @@ export default function ForgotPassWordPage({ navigation }) {
             setEmailError("Email không đúng định dạng");
         } else {
             setEmailError("");
+        }
+        try {
+            const response = await forgotPassword(email);
+
+            if (response.success) {
+                Alert.alert("Thành công", response.message);
+                setOtpSent(true);
+            } else {
+                Alert.alert("Lỗi", response.message);
+            }
+        } catch (error) {
+            Alert.alert("Lỗi", "Đã xảy ra lỗi. Hãy thử lại.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleConfirmOTP = async () => {
+        setLoading(true);
+        try {
+            const response = await validateOtp(email, otp);
+
+            if (response.success) {
+                Alert.alert("Thành công", response.message);
+                navigation.navigate("ResetPassword", { email: email });
+            } else {
+                Alert.alert("Lỗi", response.message);
+            }
+        } catch (error) {
+            Alert.alert("Lỗi", "Đã xảy ra lỗi. Hãy thử lại.");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -34,16 +71,40 @@ export default function ForgotPassWordPage({ navigation }) {
                         value={email}
                         onChangeText={(text) => {
                             setEmail(text);
-                            setEmailError(""); // Clear error when user starts typing
+                            setEmailError("");
                         }}
+                        editable={!otpSent}
                     />
                 </View>
                 {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+                {otpSent && (
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Nhập mã OTP được gửi đến email của bạn."
+                            value={otp}
+                            onChangeText={setOtp}
+                            keyboardType="numeric"
+                        />
+                    </View>
+                )}
             </View>
 
-            <TouchableOpacity style={styles.button} onPress={handleResetPassword}>
-                <Text style={styles.buttonText}>Tạo lại mật khẩu</Text>
-            </TouchableOpacity>
+            {loading ? (
+                <ActivityIndicator size="large" color="#0000ff" style={{ marginBottom: 15 }} />
+            ) : (
+                <>
+                    {otpSent ? (
+                        <TouchableOpacity style={styles.button} onPress={handleConfirmOTP}>
+                            <Text style={styles.buttonText}>Xác nhận</Text>
+                        </TouchableOpacity>
+                    ) : (
+                        <TouchableOpacity style={styles.button} onPress={handleResetPassword}>
+                            <Text style={styles.buttonText}>Tạo lại mật khẩu</Text>
+                        </TouchableOpacity>
+                    )}
+                </>
+            )}
         </View>
     );
 }

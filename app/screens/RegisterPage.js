@@ -35,11 +35,11 @@ export default function RegisterPage({ navigation }) {
         try {
             const response = await register(email, fullName, password);
 
-            if (response.error) {
-                Alert.alert("Đăng ký không thành công", response.message);
-            } else {
-                Alert.alert("Success", "Đăng ký thành công!");
+            if (response.success) {
+                Alert.alert("Đăng ký thành công", response.message);
                 navigation.navigate("Login");
+            } else {
+                Alert.alert("Đăng ký không thành công", response.message);
             }
         } catch (error) {
             Alert.alert("Đăng ký không thành công", "Đã xảy ra lỗi khi đăng ký. Hãy thử lại.");

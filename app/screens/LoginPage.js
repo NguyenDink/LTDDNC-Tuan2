@@ -20,9 +20,7 @@ export default function LoginPage({ navigation }) {
         try {
             const response = await login(email, password);
 
-            if (response.error) {
-                Alert.alert("Đăng nhập không thành công", response.message);
-            } else {
+            if (response.success) {
                 setEmail("");
                 setPassword("");
                 navigation.navigate("Home", {
@@ -32,6 +30,8 @@ export default function LoginPage({ navigation }) {
                     dob: response.result.dob || "",
                     phoneNumber: response.result.phoneNumber || "",
                 });
+            } else {
+                Alert.alert("Đăng nhập không thành công", response.message);
             }
         } catch (error) {
             Alert.alert("Đăng nhập không thành công", "Đã xảy ra lỗi khi đăng nhập. Hãy thử lại.");

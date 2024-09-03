@@ -44,7 +44,7 @@ export default function ForgotPassWordPage({ navigation }) {
 
             if (response.success) {
                 Alert.alert("Thành công", response.message);
-                navigation.navigate("ResetPassword", { email: email });
+                navigation.navigate("ResetPassWord", { email: email });
             } else {
                 Alert.alert("Lỗi", response.message);
             }

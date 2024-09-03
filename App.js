@@ -7,6 +7,7 @@ import HomePage from "./app/screens/HomePage";
 import RegisterPage from "./app/screens/RegisterPage";
 import MoreInfoPage from "./app/screens/MoreInfoPage";
 import ForgotPassWordPage from "./app/screens/ForgotPasswordPage";
+import ResetPassWordPage from "./app/screens/ResetPassWordPage";
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,11 @@ export default function App() {
                 <Stack.Screen
                     name="ForgotPassWord"
                     component={ForgotPassWordPage}
+                    options={{ headerShown: true, headerTitle: "" }}
+                />
+                <Stack.Screen
+                    name="ResetPassWord"
+                    component={ResetPassWordPage}
                     options={{ headerShown: true, headerTitle: "" }}
                 />
                 <Stack.Screen name="Register" component={RegisterPage} />
